@@ -8,13 +8,13 @@ export type TParam = {
   page?: number;
 };
 
-type TAnime = {
-  id?: number;
-  image?: string;
-  title?: string;
-  episodes?: number;
-  status?: string;
-  synopsis?: string;
+export type TAnime = {
+  id: string;
+  image: string;
+  title: string;
+  episodes: number;
+  status: string;
+  synopsis: string;
 };
 
 interface IAnime {

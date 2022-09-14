@@ -11,12 +11,15 @@ const Home: React.FC = () => {
   const skeleton = [...new Array(10)].map((_, index) => <Skeleton key={index} />);
 
   return (
-    <div className="found-block">
-      <div className="text">Found {data.length} result</div>
+    <div className='App'>
+      <div className="found-block">
+        <div className="text">Found {data.length} result</div>
 
-      <div className="main">{load === 'loading' ? skeleton : mapedAnime}</div>
+        <div className="main">{load === 'loading' ? skeleton : mapedAnime}</div>
 
+      </div>
     </div>
+
 
 
   );

@@ -1,22 +1,26 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 
 type TAnimeProps = {
-  id?: number;
-  image?: string;
-  title?: string;
-  episodes?: number;
-  status?: string;
-  synopsis?: string;
+  id: string;
+  image: string;
+  title: string;
+
 };
 
-const AnimeBlock: React.FC<TAnimeProps> = ({ image, title }) => {
+const AnimeBlock: React.FC<TAnimeProps> = ({ id, image, title }) => {
   return (
+
     <div className="main">
       <div className="anime-block">
-        <img width={300} height={366} src={image} alt="avatar"></img>
+        <Link to={`anime/${id}`}>
+          <img width={300} height={366} src={image} alt="avatar"></img>
+        </Link>
         <div className="title">{title}</div>
       </div>
-    </div>
+    </div >
+
+
   );
 };
 
