@@ -34,7 +34,7 @@ export const fetchAnime = createAsyncThunk<IAnime, TParam>(
   async (params) => {
     const { search, page } = params;
     const { data } = await axios.get<IAnime>(
-      `https://63051ff2697408f7edc23a12.mockapi.io/animes?title=${search}&page=${page}&limit=8`,
+      `https://63051ff2697408f7edc23a12.mockapi.io/animes?title=${search}&page=${page}&limit=10`,
     );
     return data;
   },
