@@ -1,14 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { RootState } from '../store';
 
 interface ISearch {
   searchValue: string;
-  pageValue: number;
+  limitAnime: number;
 }
 
 const initialState: ISearch = {
   searchValue: '',
-  pageValue: 1,
+  limitAnime: 8,
 };
 
 const searchSlice = createSlice({
@@ -18,13 +19,10 @@ const searchSlice = createSlice({
     setTitle(state, action: PayloadAction<string>) {
       state.searchValue = action.payload;
     },
-    setPage(state) {
-      state.pageValue += 1;
+    setLimit(state) {
+      state.limitAnime += 10;
     },
-    setPageOne(state, action: PayloadAction<number>) {
-      state.pageValue = action.payload;
-    },
-    setNoTittle(state, action: PayloadAction<string>) {
+    setCurrentTitle(state, action: PayloadAction<string>) {
       state.searchValue = action.payload;
     }
   },
@@ -32,6 +30,6 @@ const searchSlice = createSlice({
 
 export const searchSelector = (state: RootState) => state.search;
 
-export const { setTitle, setPage, setPageOne, setNoTittle } = searchSlice.actions;
+export const { setTitle, setLimit, setCurrentTitle } = searchSlice.actions;
 
 export default searchSlice.reducer;

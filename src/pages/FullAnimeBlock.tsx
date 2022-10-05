@@ -22,13 +22,13 @@ const FullAnimeBlock: React.FC = () => {
   }
 
   return (
-    <div className='App'>
+    <>
       <img src={animeById.image} alt='Ава'></img>
       <div>{animeById.title}</div>
       <div>{animeById.synopsis}</div>
       <div>{animeById.status}</div>
       <div>{animeById.episodes}</div>
-    </div>
+    </>
   )
 }
 

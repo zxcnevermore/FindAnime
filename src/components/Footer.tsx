@@ -1,7 +1,7 @@
 import React from 'react';
 import { animeSelector } from '../redux/slices/animeSlice';
 import { useAppDispatch } from '../redux/store';
-import { setPage } from '../redux/slices/searchSlice';
+import { setLimit } from '../redux/slices/searchSlice';
 import { useSelector } from 'react-redux';
 
 const Footer: React.FC = () => {
@@ -10,10 +10,9 @@ const Footer: React.FC = () => {
 
   const onClickLoad = () => {
     if (data.length < totalCount) {
-      dispatch(setPage());
+      dispatch(setLimit());
     }
   };
-
   return (
 
     <div className="footer-block">

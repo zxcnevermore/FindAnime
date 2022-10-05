@@ -1,42 +1,31 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { animeSelector, fetchAnime, setData } from '../redux/slices/animeSlice';
+import { fetchAnime } from '../redux/slices/animeSlice';
 import { useAppDispatch } from '../redux/store';
-import { searchSelector, setTitle, setPageOne, setNoTittle } from '../redux/slices/searchSlice';
+import { searchSelector, setTitle, setCurrentTitle } from '../redux/slices/searchSlice';
 
 
 const Header: React.FC = () => {
-  const { searchValue, pageValue } = useSelector(searchSelector);
-  const { totalCount, data } = useSelector(animeSelector);
-
+  const { searchValue, limitAnime } = useSelector(searchSelector);
   const [value, setValue] = React.useState('');
-
   const dispatch = useAppDispatch();
-
-  React.useEffect(() => {
-    if (!data.length) {
-      const search = searchValue;
-      const page = pageValue;
-      dispatch(fetchAnime({ search, page }));
-    }
-  }, []);
 
   const onClickSearch = React.useCallback(() => {
     const search = searchValue;
-    const page = pageValue;
-    dispatch(setData());
-    dispatch(fetchAnime({ search, page }));
-  }, [searchValue, pageValue]);
+    const limit = limitAnime;
+    dispatch(fetchAnime({ search, limit }));
+  }, [searchValue, limitAnime]);
 
   React.useEffect(() => {
-    dispatch(setNoTittle(''));
-    dispatch(setPageOne(1));
-    if (pageValue > 1 && data.length < totalCount) {
-      const search = searchValue;
-      const page = pageValue;
-      dispatch(fetchAnime({ search, page }));
-    }
-  }, [pageValue]);
+    dispatch(setCurrentTitle(searchValue));
+    setValue(searchValue);
+    const search = searchValue;
+    const limit = limitAnime;
+    dispatch(fetchAnime({ search, limit }));
+
+
+  }, [limitAnime]);
+
 
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);

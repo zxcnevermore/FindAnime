@@ -4,8 +4,8 @@ import axios from 'axios';
 import { RootState } from '../store';
 
 export type TParam = {
-  search: string;
-  page?: number;
+  search?: string;
+  limit?: number;
 };
 
 export type TAnime = {
@@ -26,15 +26,15 @@ interface IAnime {
 const initialState: IAnime = {
   totalCount: 0,
   data: [],
-  load: 'loading',
+  load: 'success',
 };
 
 export const fetchAnime = createAsyncThunk<IAnime, TParam>(
   'anime/fetchAnimeStatus',
   async (params) => {
-    const { search, page } = params;
+    const { search, limit } = params;
     const { data } = await axios.get<IAnime>(
-      `https://63051ff2697408f7edc23a12.mockapi.io/animes?title=${search}&page=${page}&limit=10`,
+      `https://63051ff2697408f7edc23a12.mockapi.io/animes?title=${search}&page=1&limit=${limit}`,
     );
     return data;
   },
@@ -52,6 +52,7 @@ const animeSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchAnime.pending, (state) => {
       state.load = 'loading';
+      state.data = []
     });
     builder.addCase(fetchAnime.fulfilled, (state, action) => {
       state.totalCount = action.payload.totalCount;
