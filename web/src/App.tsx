@@ -19,7 +19,7 @@ function App() {
       </Routes>
       {pathname === '/' && <Footer />}
     </div>
-  );
+  )
 }
 
 export default App;

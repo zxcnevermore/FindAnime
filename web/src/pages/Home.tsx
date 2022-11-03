@@ -16,10 +16,6 @@ const Home: React.FC = () => {
       <div className="found-block">Found {data.length} result</div>
       <div className="main">{load === 'loading' ? skeleton : mapedAnime}</div>
     </div>
-
-
-
-
   );
 };
 

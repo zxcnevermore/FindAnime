@@ -9,7 +9,7 @@ interface ISearch {
 
 const initialState: ISearch = {
   searchValue: '',
-  limitAnime: 8,
+  limitAnime: 5,
 };
 
 const searchSlice = createSlice({
@@ -20,7 +20,7 @@ const searchSlice = createSlice({
       state.searchValue = action.payload;
     },
     setLimit(state) {
-      state.limitAnime += 10;
+      state.limitAnime += 5;
     },
     setCurrentTitle(state, action: PayloadAction<string>) {
       state.searchValue = action.payload;

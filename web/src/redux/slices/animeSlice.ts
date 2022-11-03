@@ -14,17 +14,18 @@ export type TAnime = {
   title: string;
   episodes: number;
   status: string;
-  synopsis: string;
+  desc: string;
+  genres: string[];
 };
 
-interface IAnime {
+export interface IAnime {
   data: TAnime[];
-  totalCount: number;
+  totalData: number;
   load: 'loading' | 'success' | 'error';
 }
 
 const initialState: IAnime = {
-  totalCount: 0,
+  totalData: 0,
   data: [],
   load: 'success',
 };
@@ -34,7 +35,7 @@ export const fetchAnime = createAsyncThunk<IAnime, TParam>(
   async (params) => {
     const { search, limit } = params;
     const { data } = await axios.get<IAnime>(
-      `https://63051ff2697408f7edc23a12.mockapi.io/animes?title=${search}&page=1&limit=${limit}`,
+      `http://localhost:5000/anime?title=${search}&page=1&size=${limit}`,
     );
     return data;
   },
@@ -48,21 +49,20 @@ const animeSlice = createSlice({
       state.data = [];
     },
   },
-
   extraReducers: (builder) => {
     builder.addCase(fetchAnime.pending, (state) => {
       state.load = 'loading';
       state.data = []
     });
     builder.addCase(fetchAnime.fulfilled, (state, action) => {
-      state.totalCount = action.payload.totalCount;
+      state.totalData = action.payload.totalData;
       state.data = [...state.data, ...action.payload.data];
       state.load = 'success';
     });
     builder.addCase(fetchAnime.rejected, (state) => {
       state.load = 'error';
       state.data = [];
-      state.totalCount = 0;
+      state.totalData = 0;
     });
   },
 });

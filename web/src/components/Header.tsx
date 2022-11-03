@@ -10,7 +10,7 @@ const Header: React.FC = () => {
   const [value, setValue] = React.useState('');
   const dispatch = useAppDispatch();
 
-  const onClickSearch = React.useCallback(() => {
+  const onClickSearch = React.useCallback((): void => {
     const search = searchValue;
     const limit = limitAnime;
     dispatch(fetchAnime({ search, limit }));

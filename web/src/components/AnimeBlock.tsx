@@ -5,10 +5,9 @@ type TAnimeProps = {
   id: string;
   image: string;
   title: string;
-
 };
 
-const AnimeBlock: React.FC<TAnimeProps> = ({ id, image, title }) => {
+const AnimeBlock: React.FC<TAnimeProps> = ({ id, image, title}) => {
   return (
 
     <div className="main">
