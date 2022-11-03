@@ -1,46 +1,34 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { TAnime } from '../redux/slices/animeSlice'
-import axios from 'axios'
+import { useSelector } from 'react-redux';
 import Skeleton from '../components/Skeleton'
+import { animeByIdSelector, fetchAnimeById } from '../redux/slices/animeByIdSlice';
+import { useAppDispatch } from '../redux/store';
+import FullBlock from '../components/FullBlock';
+
 
 
 const FullAnimeBlock: React.FC = () => {
-
   const { id } = useParams()
-  const [animeById, setAnimeById] = React.useState<TAnime>()
+  const { data, load } = useSelector(animeByIdSelector)
+  const dispatch = useAppDispatch()
 
   React.useEffect(() => {
-    const fetchAnimeById = async () => {
-      const { data } = await axios.get<TAnime>(`https://63051ff2697408f7edc23a12.mockapi.io/animes/${id}`)
-      setAnimeById(data)
+    dispatch(fetchAnimeById(id))
+  },[])
 
-    }
-    fetchAnimeById();
-  }, [])
+  console.log(data)
 
-  if (!animeById) {
-    return <Skeleton />
-  }
+  const mapedAnimeById = data.map((anime) => <FullBlock key={anime.id} {...anime} />);
+  const skeleton = [...new Array(1)].map((_, index) => <Skeleton key={index} />);
 
 
   return (
-    <div className='container-fullcontent'>
-      <div className='fullcontent'>
-        <div className='left'>
-          <img src={animeById.image} alt='Ава'></img>
-          <div>
-            <h1>{animeById.title}</h1>
-            <div className='properties'>
-              <div className='status'>Статус {animeById.status}</div>
-              <div className='episodes'>Эпизодов {animeById.episodes}</div>
-            </div>
-          </div>
-        </div>
-        <h2>Описание</h2>
-        <div className='desc'>{animeById.desc}</div>
+    <>
+      <div className='container-fullcontent'>
+      {load === 'loading' ? skeleton : mapedAnimeById}
       </div>
-    </div >
+    </>
   )
 }
 

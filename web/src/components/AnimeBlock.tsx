@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 
 type TAnimeProps = {
-  id: string;
+  id: number;
   image: string;
   title: string;
 };

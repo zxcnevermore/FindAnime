@@ -32,7 +32,17 @@ const getAnime = (request, response) => {
   }
 }
 
+const getAnimeById = (request, response) => {
+  const id = request.params.id
+  pool.query(`SELECT * FROM anime WHERE id = ${id}`, (error, results) => {
+    if(error){
+      throw error
+    }
+    response.status(200).json({data:results.rows})
+  })
+}
 
 module.exports = {
-  getAnime
+  getAnime,
+  getAnimeById
 }

@@ -126,18 +126,23 @@ body {
         grid-column-gap: 50px;
         grid-row-gap: 10px;
         margin-left: 15px;
+        .status {
+          font-size: 20px;
+        }
+        .episodes {
+          font-size: 20px;
+        }
+        li {
+          list-style-type: none;
+          margin-top: 5px;
+        }
       }
+
     }
     .desc {
       font-size: 18px;
+      padding-bottom: 20px;
     }
-    .properties {
-      .status {
-        font-size: 20px;
-      }
-      .episodes {
-        font-size: 20px;
-      }
-    }
+
   }
 }

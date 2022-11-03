@@ -18,6 +18,7 @@ app.get('/', (request, response) => {
 })
 
 app.get('/anime', db.getAnime)
+app.get('/anime/:id', db.getAnimeById)
 
 app.listen(port, () => {
   console.log(`Server start on port + ${port}`)

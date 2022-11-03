@@ -9,13 +9,14 @@ export type TParam = {
 };
 
 export type TAnime = {
-  id: string;
+  id: number;
   image: string;
   title: string;
   episodes: number;
   status: string;
   desc: string;
   genres: string[];
+  type: string;
 };
 
 export interface IAnime {
@@ -27,7 +28,7 @@ export interface IAnime {
 const initialState: IAnime = {
   totalData: 0,
   data: [],
-  load: 'success',
+  load: 'loading',
 };
 
 export const fetchAnime = createAsyncThunk<IAnime, TParam>(
