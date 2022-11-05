@@ -1,25 +1,38 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const app = express()
-const db = require('./queries')
-const port = 5000
 const cors = require('cors')
 
-app.use(cors())
+
+const app = express()
+
+var corsOptions = {
+  origin: "http://localhost:8081"
+}
+app.use(cors(corsOptions))
+
 app.use(bodyParser.json())
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-)
+app.use(bodyParser.urlencoded({extended: true }))
+
+const db = require("./models")
+const Role = db.role;
+db.sequelize.sync();
+
+
+
+require('./routes/auth.routes')(app);
+require('./routes/user.routes')(app);
+
+
+
 
 app.get('/', (request, response) => {
   response.json({info: 'Main endpoint'})
 })
 
-app.get('/anime', db.getAnime)
-app.get('/anime/:id', db.getAnimeById)
-
-app.listen(port, () => {
-  console.log(`Server start on port + ${port}`)
+// app.get('/anime', db.getAnime)
+// app.get('/anime/:id', db.getAnimeById)
+// app.post('/register', db.createUser)
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server start on port + ${PORT}`)
 })
