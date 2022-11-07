@@ -1,12 +1,22 @@
+const db = require('../models');
+const Anime = db.anime;
+
+
 exports.allAccess = (req, res) => {
-  res.status(200).send("Public Content.");
+  Anime.findAll({
+    order:[
+      ['id', 'ASC']
+    ]
+  }).then(anime =>{
+    res.json({data:anime});
+  })
 }
 exports.userBoard  = (req, res) => {
-  res.status(200).send("User Content.");
+  res.status(200).send("User conntent")
 }
 exports.adminBoard  = (req, res) => {
-  res.status(200).send("Admin Content.");
-}
+  res.status(200).send("Admin content")
+  }
 exports.moderatorBoard  = (req, res) => {
   res.status(200).send("Moderator Content.");
 }

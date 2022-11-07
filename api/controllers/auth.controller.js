@@ -58,13 +58,13 @@ exports.signin = (req, res) => {
       });
     }
 
-    var token = jwt.sign({id: user.id, login: user.login}, config.secret, {
-      expiresIn: 86400
+    var token = jwt.sign({id: user.id}, config.secret, {
+      expiresIn: 3600
     });
 
     var authorities = [];
     user.getRoles().then(roles => {
-      for (let i = 0; i < roles.lenth; i++) {
+      for (let i = 0; i < roles.length; i++) {
         authorities.push("ROLE_" + roles[i].name.toUpperCase());
       }
       res.status(200).send({
