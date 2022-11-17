@@ -15,7 +15,7 @@ const initialState: IAnime = {
   load: 'success',
 };
 
-export const fetchAnimeById = createAsyncThunk<IAnime, string | undefined >(
+export const fetchAnimeById = createAsyncThunk<IAnime,  string | undefined>(
   'anime/fetchAnimeByIdStatus',
   async (id) => {
     const { data } = await axios.get<IAnime>(

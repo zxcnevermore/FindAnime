@@ -4,39 +4,41 @@ const User = db.user;
 
 
 chekLoginOrEmail = (req, res, next) => {
+  // Login
   User.findOne({
     where: {
       login: req.body.login
     }
   }).then(user => {
-    if(user){
+    if(user) {
       res.status(400).send({
-        message: "Failed! Login is already in use!"
+        message: "Failed! login is already in use!"
       });
       return;
     }
-  })
 
-  User.findOne({
-    where: {
-      email: req.body.email
-    }
-  }).then(user => {
-    if(user) {
-      res.status(400).send({
-        message: "Failed! Email is already in use!"
-      });
-      return
-    }
+    // Email
+    User.findOne({
+      where: {
+        email: req.body.email
+      }
+    }).then(user => {
+      if(user) {
+        res.status(400).send({
+          message: "Failed! Email is already in use!"
+        });
+        return;
+      }
 
-    next();
+      next();
+    });
   });
 };
 
 checkRoleExisted = (req, res, next) => {
-  if(req.body.roles) {
+  if (req.body.roles) {
     for (let i = 0; i < req.body.roles.length; i++) {
-      if(!ROLES.includes(req.body.roles[i])) {
+      if (!ROLES.includes(req.body.roles[i])) {
         res.status(400).send({
           message: "Failed! Role does not exist = " + req.body.roles[i]
         });
@@ -44,8 +46,9 @@ checkRoleExisted = (req, res, next) => {
       }
     }
   }
+
   next();
-}
+};
 
 const verifySignUp = {
   chekLoginOrEmail: chekLoginOrEmail,

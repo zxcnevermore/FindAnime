@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import Skeleton from '../components/Skeleton'
-import { animeByIdSelector, fetchAnimeById } from '../redux/slices/animeByIdSlice';
+import { animeByIdSelector, fetchAnimeById} from '../redux/slices/animeByIdSlice';
 import { useAppDispatch } from '../redux/store';
 import FullBlock from '../components/FullBlock';
 

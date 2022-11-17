@@ -6,10 +6,10 @@ import { useSelector } from 'react-redux';
 
 const Footer: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { totalData, data } = useSelector(animeSelector);
+  const { totalItems, anime } = useSelector(animeSelector);
 
   const onClickLoad = () => {
-    if (data.length < totalData) {
+    if (anime.length < totalItems) {
       dispatch(setLimit());
     }
   };

@@ -11,11 +11,11 @@ const getPagination = (page, size) => {
 }
 
 const getPaginationData = (data, page, limit) => {
-  const {count: totalItems, rows: Anime} = data;
+  const {count: totalItems, rows: anime} = data;
   const currentPage = page ? +page : 0;
   const totalPage = Math.ceil(totalItems / limit)
 
-  return {totalItems, Anime, totalPage, currentPage}
+  return {totalItems, anime, totalPage, currentPage}
 }
 
 
@@ -33,7 +33,7 @@ exports.allAccess = (req, res) => {
         ]
       }).then(data =>{
         const response = getPaginationData(data, page, limit)
-        res.json({data:response});
+        res.send(response);
       })
     }
     else{

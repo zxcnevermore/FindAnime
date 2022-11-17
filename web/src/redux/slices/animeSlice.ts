@@ -20,14 +20,14 @@ export type TAnime = {
 };
 
 export interface IAnime {
-  data: TAnime[];
-  totalData: number;
+  totalItems: number;
+  anime: TAnime[];
   load: 'loading' | 'success' | 'error';
 }
 
 const initialState: IAnime = {
-  totalData: 0,
-  data: [],
+  totalItems: 0,
+  anime: [],
   load: 'loading',
 };
 
@@ -36,34 +36,36 @@ export const fetchAnime = createAsyncThunk<IAnime, TParam>(
   async (params) => {
     const { search, limit } = params;
     const { data } = await axios.get<IAnime>(
-      `http://localhost:5000/anime?title=${search}&page=1&size=${limit}`,
+      `http://localhost:8080/get/all?title=${search}&page=1&size=${limit}`,
     );
     return data;
   },
-);
+  );
+
+
 
 const animeSlice = createSlice({
   name: 'anime',
   initialState,
   reducers: {
     setData(state) {
-      state.data = [];
+      state.anime = [];
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAnime.pending, (state) => {
       state.load = 'loading';
-      state.data = []
+      state.anime = []
     });
     builder.addCase(fetchAnime.fulfilled, (state, action) => {
-      state.totalData = action.payload.totalData;
-      state.data = [...state.data, ...action.payload.data];
+      state.totalItems = action.payload.totalItems;
+      state.anime = [...state.anime, ...action.payload.anime];
       state.load = 'success';
     });
     builder.addCase(fetchAnime.rejected, (state) => {
       state.load = 'error';
-      state.data = [];
-      state.totalData = 0;
+      state.anime = [];
+      state.totalItems = 0;
     });
   },
 });
