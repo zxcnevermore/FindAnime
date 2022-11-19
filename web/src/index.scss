@@ -44,15 +44,45 @@ body {
       padding: 20px;
       border-radius: 12px;
       background-color: white;
-      height: 400px;
+      height: 350px;
       width: 400px;
       transform: scale(0.5);
       transition: 0.3s ease-in-out;
+      background-color: #d4d4d4fb;
     }
   }
   .modal.active {
    opacity: 1;
    pointer-events: all;
+  }
+
+  .register__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    input {
+      margin-top: 20px;
+      border: 1px solid white;
+      border-radius: 10px;
+      border-width: 10px;
+      font-size: 20px;
+    }
+    p{
+      text-transform: capitalize;
+      text-align: center;
+      padding-top: 15px;
+    }
+    .btn_subbmit{
+      height: 60px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 20px;
+      background-color: white;
+      cursor: pointer;
+      &:active{
+        opacity: 0.5;
+      }
+    }
   }
 
   .modal__content.active {
@@ -78,7 +108,15 @@ body {
   }
 }
 
-.btn_register {
+.btn_signin{
+  margin-right: 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100px;
+}
+
+.btn_signup {
   border: none;
   border-radius: 10px;
   cursor: pointer;

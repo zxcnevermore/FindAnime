@@ -51,8 +51,8 @@ const Header: React.FC = () => {
             <img width={24} height={24} src="img/search.svg" alt="search"></img>
           </button>
         </div>
-      <button onClick={() => setModalActive2(true)} className='btn_register'>Вход</button>
-      <button onClick={() => setModalActive(true)} className='btn_register'>Регистрация</button>
+      <button onClick={() => setModalActive2(true)} className='btn_signin'>Вход</button>
+      <button onClick={() => setModalActive(true)} className='btn_signup'>Регистрация</button>
       <Modal active={modalActvie} setActive={setModalActive}>
           <RegisterForm/>
       </Modal>

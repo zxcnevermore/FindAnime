@@ -1,6 +1,9 @@
 import axios from 'axios';
 import React from 'react'
+import * as yup from "yup";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+
 
 interface IUser {
   login: string;
@@ -9,15 +12,25 @@ interface IUser {
   message: string;
 }
 
+const schema = yup.object({
+  login: yup.string().required().min(5).max(30),
+  email: yup.string().required().email().min(5).max(30),
+  password: yup.string().required(),
+}).required();
+
 export const RegisterForm: React.FC = () => {
+  const form = React.useRef<HTMLFormElement>(null)
   const [user, setUser] = React.useState<IUser>()
-  const { register, handleSubmit, formState: { errors } } = useForm<IUser>();
+  const { register, handleSubmit, formState: { errors } } = useForm<IUser>({
+    resolver: yupResolver(schema)
+  });
   const onSubmit: SubmitHandler<IUser> = async user => {
    await axios.post<IUser>('http://localhost:8080/auth/signup', user)
    .then((res) => {
      if (res.status === 200) {
       setUser(user);
       alert(res.data.message)
+      form.current?.reset();
      }
    })
    .catch((error) => {
@@ -26,11 +39,14 @@ export const RegisterForm: React.FC = () => {
   };
 
   return (
-      <form onSubmit={handleSubmit(onSubmit)}>
-      <input type="text" placeholder="login" {...register("login", {required: true, maxLength: 80})} />
-      <input type="text" placeholder="email" {...register("email", {required: true, min: 3, maxLength: 100, pattern: /^\S+@\S+$/i})} />
-      <input type="password" placeholder="password" {...register("password", {required: true, maxLength: 100})} />
-      <input type="submit" />
-      </form>
+        <form ref={form} className='register__form' onSubmit={handleSubmit(onSubmit)}>
+          <input type="text" placeholder="Логин" {...register("login", {required: true, min: 3, maxLength: 30})}  />
+          <p>{errors.login?.message}</p>
+          <input type="text" placeholder="Email" {...register("email", {required: true, min: 3, maxLength: 30, pattern: /^\S+@\S+$/i})} />
+          <p>{errors.email?.message}</p>
+          <input type="password" placeholder="Пароль" {...register("password", {required: true, min: 3, maxLength: 20})} />
+          <p>{errors.password?.message}</p>
+          <input  className='btn_subbmit'   type="submit" value="Зарегистрироваться" />
+        </form>
   );
 }
