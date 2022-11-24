@@ -1,18 +1,23 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { fetchAnime } from '../redux/slices/animeSlice';
 import { useAppDispatch } from '../redux/store';
-import { searchSelector, setTitle, setCurrentTitle } from '../redux/slices/searchSlice';
+import { searchSelector, setTitle } from '../redux/slices/searchSlice';
+import { fetchAnime } from '../redux/slices/animeSlice';
 import Modal from './Modal';
-import { RegisterForm } from './RegisterForm';
+import { Link, Navigate } from 'react-router-dom';
+
 
 
 const Header: React.FC = () => {
+
+  const token = window.localStorage.getItem('token')
+
   const { searchValue, limitAnime } = useSelector(searchSelector);
+
   const [value, setValue] = React.useState('');
-  const [modalActvie, setModalActive] = React.useState<boolean>(false)
-  const [modalActvie2, setModalActive2] = React.useState<boolean>(false)
+  const [modalActvie3, setModalActive3] = React.useState<boolean>(false)
   const dispatch = useAppDispatch();
+
 
   const onClickSearch = React.useCallback((): void => {
     const search = searchValue;
@@ -20,22 +25,16 @@ const Header: React.FC = () => {
     dispatch(fetchAnime({ search, limit }));
   }, [searchValue, limitAnime]);
 
-  React.useEffect(() => {
-    dispatch(setCurrentTitle(searchValue));
-    setValue(searchValue);
-    const search = searchValue;
-    const limit = limitAnime;
-    dispatch(fetchAnime({ search, limit }));
-
-
-  }, [limitAnime]);
-
-
+  const logout = (): void => {
+    window.localStorage.removeItem('token')
+    setModalActive3(false)
+  }
 
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
     dispatch(setTitle(event.target.value));
   };
+
 
   return (
     <div className="header">
@@ -51,14 +50,17 @@ const Header: React.FC = () => {
             <img width={24} height={24} src="img/search.svg" alt="search"></img>
           </button>
         </div>
-      <button onClick={() => setModalActive2(true)} className='btn_signin'>Вход</button>
-      <button onClick={() => setModalActive(true)} className='btn_signup'>Регистрация</button>
-      <Modal active={modalActvie} setActive={setModalActive}>
-          <RegisterForm/>
-      </Modal>
-      <Modal active={modalActvie2} setActive={setModalActive2}>
-          <p>вход</p>
-      </Modal>
+          {token ? <button onClick={() => setModalActive3(true)} className='btn_exit'>Выход</button>
+          :
+          <>
+          <Link to='/login'><button className='btn_signin'>Вход</button></Link>
+          <Link to='/register'><button className='btn_signup'>Регистрация</button></Link>
+          </>}
+        <Modal active={modalActvie3} setActive={setModalActive3}>
+            <h1>Вы действительно хотите выйти?</h1>
+            <button onClick={() => logout()} className='btn_exit'>Да</button>
+            <button onClick={() => setModalActive3(false)} className='btn_no'>Нет</button>
+        </Modal>
       </div>
     </div>
 

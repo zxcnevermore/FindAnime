@@ -14,7 +14,6 @@ const Footer: React.FC = () => {
     }
   };
   return (
-
     <div className="footer-block">
       <div className="load-more">
         <button onClick={onClickLoad} className="button">
@@ -22,8 +21,6 @@ const Footer: React.FC = () => {
         </button>
       </div>
     </div>
-
-
   );
 };
 

@@ -22,7 +22,7 @@ const getPaginationData = (data, page, limit) => {
 exports.allAccess = (req, res) => {
   const { size, page, title } = req.query
   console.log('params', size, page, title)
-  var condition = title ? {title : {[Op.like]: `%${title}%`} } : null;
+  var condition = title ? {title : {[Op.iLike]: `%${title}%`} } : null;
 
   const {limit, offset} = getPagination(page, size)
     if(page && size) {
@@ -39,10 +39,11 @@ exports.allAccess = (req, res) => {
     else{
       res.status(411).json({message: "Params page,size required"})
     }
+
   }
 
 exports.userBoard  = (req, res) => {
-  res.status(200).send("User conntent")
+  res.status(200).send("all")
 }
 exports.adminBoard  = (req, res) => {
   res.status(200).send("Admin content")

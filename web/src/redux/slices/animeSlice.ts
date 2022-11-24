@@ -1,7 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios from '../../axios.js';
+
 
 import { RootState } from '../store';
+
+
 
 export type TParam = {
   search?: string;
@@ -36,7 +39,7 @@ export const fetchAnime = createAsyncThunk<IAnime, TParam>(
   async (params) => {
     const { search, limit } = params;
     const { data } = await axios.get<IAnime>(
-      `http://localhost:8080/get/all?title=${search}&page=1&size=${limit}`,
+      `/get/all?title=${search}&page=1&size=${limit}`
     );
     return data;
   },

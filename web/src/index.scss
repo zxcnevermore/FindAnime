@@ -44,7 +44,6 @@ body {
       padding: 20px;
       border-radius: 12px;
       background-color: white;
-      height: 350px;
       width: 400px;
       transform: scale(0.5);
       transition: 0.3s ease-in-out;
@@ -54,35 +53,6 @@ body {
   .modal.active {
    opacity: 1;
    pointer-events: all;
-  }
-
-  .register__form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    input {
-      margin-top: 20px;
-      border: 1px solid white;
-      border-radius: 10px;
-      border-width: 10px;
-      font-size: 20px;
-    }
-    p{
-      text-transform: capitalize;
-      text-align: center;
-      padding-top: 15px;
-    }
-    .btn_subbmit{
-      height: 60px;
-      margin-top: 20px;
-      border: none;
-      border-radius: 20px;
-      background-color: white;
-      cursor: pointer;
-      &:active{
-        opacity: 0.5;
-      }
-    }
   }
 
   .modal__content.active {
@@ -107,12 +77,45 @@ body {
     cursor: pointer;
   }
 }
+.form_wrap {
+  display: flex;
+  justify-content: center;
+  padding-top: 10%;
+  .register__form {
+    display: flex;
+    flex-direction: column;
+    input {
+      margin-top: 20px;
+      border: 1px solid white;
+      border-radius: 10px;
+      border-width: 10px;
+      font-size: 20px;
+    }
+    p{
+      text-transform: capitalize;
+      text-align: center;
+      padding-top: 15px;
+    }
+    .btn_subbmit{
+      height: 60px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 20px;
+      background-color: white;
+      cursor: pointer;
+      &:active{
+        opacity: 0.5;
+      }
+    }
+  }
+}
 
 .btn_signin{
   margin-right: 10px;
   border: none;
   border-radius: 10px;
   cursor: pointer;
+  height: 50px;
   width: 100px;
 }
 
@@ -120,7 +123,25 @@ body {
   border: none;
   border-radius: 10px;
   cursor: pointer;
+  height: 50px;
   width: 100px;
+}
+
+.btn_exit {
+  background-color: rgb(255, 117, 117);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100px;
+}
+
+.btn_no{
+  background-color: rgb(211, 238, 196);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100px;
+  margin-left: 50%;
 }
 
 .content {
