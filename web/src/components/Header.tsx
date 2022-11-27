@@ -5,6 +5,7 @@ import { searchSelector, setTitle } from '../redux/slices/searchSlice';
 import { fetchAnime } from '../redux/slices/animeSlice';
 import Modal from './Modal';
 import { Link, Navigate } from 'react-router-dom';
+import { loginSelector, logout } from '../redux/slices/loginSlice';
 
 
 
@@ -13,6 +14,8 @@ const Header: React.FC = () => {
   const token = window.localStorage.getItem('token')
 
   const { searchValue, limitAnime } = useSelector(searchSelector);
+  const { data } = useSelector(loginSelector);
+
 
   const [value, setValue] = React.useState('');
   const [modalActvie3, setModalActive3] = React.useState<boolean>(false)
@@ -25,8 +28,8 @@ const Header: React.FC = () => {
     dispatch(fetchAnime({ search, limit }));
   }, [searchValue, limitAnime]);
 
-  const logout = (): void => {
-    window.localStorage.removeItem('token')
+  const exit = (): void => {
+    dispatch(logout())
     setModalActive3(false)
   }
 
@@ -50,7 +53,7 @@ const Header: React.FC = () => {
             <img width={24} height={24} src="img/search.svg" alt="search"></img>
           </button>
         </div>
-          {token ? <button onClick={() => setModalActive3(true)} className='btn_exit'>Выход</button>
+          {data ? <button onClick={() => setModalActive3(true)} className='btn_exit'>Выход</button>
           :
           <>
           <Link to='/login'><button className='btn_signin'>Вход</button></Link>
@@ -58,7 +61,7 @@ const Header: React.FC = () => {
           </>}
         <Modal active={modalActvie3} setActive={setModalActive3}>
             <h1>Вы действительно хотите выйти?</h1>
-            <button onClick={() => logout()} className='btn_exit'>Да</button>
+            <button onClick={() => exit()} className='btn_exit'>Да</button>
             <button onClick={() => setModalActive3(false)} className='btn_no'>Нет</button>
         </Modal>
       </div>
